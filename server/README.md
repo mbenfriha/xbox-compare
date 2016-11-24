@@ -1,26 +1,21 @@
-# Slim Framework 3 Skeleton Application
+# Xbox Store Compare API 
 
-Use this skeleton application to quickly setup and start working on a new Slim Framework 3 application. This application uses the latest Slim 3 with the PHP-View template renderer. It also uses the Monolog logger.
 
-This skeleton application was built for Composer. This makes setting up a new Slim Framework application quick and easy.
+- Slim 3.
+- HTML DOM Parser.
+- Auto convert currency with google finance.
 
 ## Install the Application
 
-Run this command from the directory in which you want to install your new Slim Framework application.
+Run this command from the directory in which you want to launch API.
 
-    php composer.phar create-project slim/slim-skeleton [my-app-name]
+    php -S localhost:8080 -t public public/index.php
+    
+## Routes
 
-Replace `[my-app-name]` with the desired directory name for your new application. You'll want to:
+GET /games : all games, order by name
+GET /games/last : last ten games, with the lowest price in Euro
+GET /game/{id} : A unique game with all the original prices and its converted prices
+POST /game {link: "string"}: get game on xbox store with id on link
+PUT /game/{id} : update all prices of game
 
-* Point your virtual host document root to your new application's `public/` directory.
-* Ensure `logs/` is web writeable.
-
-To run the application in development, you can also run this command. 
-
-	php composer.phar start
-
-Run this command to run the test suite
-
-	php composer.phar test
-
-That's it! Now go build something cool.
