@@ -1,5 +1,29 @@
 <?php
+function curl_post_async($url, $params)
+{
+    foreach ($params as $key => &$val)
+    {
+        if (is_array($val))
+            $val = implode(',', $val);
+        $post_params[] = $key.'='.urlencode($val);
+    }
+    $post_string = implode('&', $post_params);
 
+    $parts = parse_url($url);
+
+    $fp = fsockopen($parts['host'], isset($parts['port'])?$parts['port']:80, $errno, $errstr, 30);
+
+    $out = "POST ".$parts['path']." HTTP/1.1\r\n";
+    $out.= "Host: ".$parts['host']."\r\n";
+    $out.= "Content-Type: application/x-www-form-urlencoded\r\n";
+    $out.= "Content-Length: ".strlen($post_string)."\r\n";
+    $out.= "Connection: Close\r\n\r\n";
+    if (isset($post_string))
+        $out.= $post_string;
+
+    fwrite($fp, $out);
+    fclose($fp);
+}
 
 function getGame($link) {
     $country = [
@@ -22,27 +46,31 @@ function getGame($link) {
     $context = stream_context_create([
         'http' => [
             'method'        => "GET",
-            'user_agent'    => $_SERVER['HTTP_USER_AGENT']
+            'user_agent'    => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36'
         ]
     ]);
     $price = [];
 
+    file_put_contents("test.txt", "mdrr1");
     if(!$link || count(explode('/', $link)) !== 8 || !str_get_html(file_get_contents($link, false, $context))) {
         var_dump('ok1');
         return false;
     }
+    file_put_contents("test.txt", "mdrr2");
 
     $html = str_get_html(file_get_contents($link, false, $context));
+    file_put_contents("test.txt", $html);
+
     foreach($html->find('.srv_itemDetails') as $element)
 
         $back = explode('(', $element->find('.context-image-cover', 0)->getAttribute('style'));
 
-      if(!uploadImage(htmlspecialchars_decode($element->find('.srv_appHeaderBoxArt img', 0)->src), array_pop(explode('/', $link)))) {
+      if(!uploadImage($element->find('.srv_appHeaderBoxArt img', 0)->src, array_pop(explode('/', $link)))) {
           var_dump('ok2');
           return false;
       }
 
-      if(!uploadImage(htmlspecialchars_decode($back[1]), 'background-' . array_pop(explode('/', $link)))) {
+      if(!uploadImage($back[1], 'background-' . array_pop(explode('/', $link)))) {
           var_dump('ok3');
           return false;
       }
@@ -51,7 +79,7 @@ function getGame($link) {
             ':id_game' => array_pop(explode('/', $link)),
             ':game_slug' => explode('/', $link)[count(explode('/', $link)) - 2],
             ':name' => $element->find('.srv_title', 0)->plaintext,
-            ':thumb' => $element->find('.srv_appHeaderBoxArt img', 0)->src,
+            ':thumb' => htmlspecialchars_decode($element->find('.srv_appHeaderBoxArt img', 0)->src),
             ':background' => htmlspecialchars_decode($back[1])
         ]);
 
@@ -69,16 +97,19 @@ function getGame($link) {
 }
 
 function uploadImage($thumb, $name){
+    global $app;
+    $link = 'https:' . rtrim(trim(htmlspecialchars_decode($thumb), "https:"), "); ");
 
-    if(file_get_contents(rtrim('https:'. trim($thumb, "https:"), "); "))) {
-        $fp = fopen('./public/upload/game/'. $name . '.jpeg', "w");
-        fwrite($fp, file_get_contents(rtrim('https:'.$thumb, "); ")));
-        fclose($fp);
+    if($file = file_get_contents($link)) {
+
+        file_put_contents('public/upload/game/'. $name . '.jpeg', $file);
+       // $fp = fopen('./hos'. $name . '.jpeg', "w");
+       // fwrite($fp, file_get_contents($link));
+       // fclose($fp);
         return true;
     }
-    else
-        var_dump(rtrim('https:'.$thumb, "); "));
-        return false;
+    var_dump(rtrim('https:'.$thumb, "); "));
+    return false;
 }
 
 function updateGame($link, $id) {

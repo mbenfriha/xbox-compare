@@ -16,6 +16,10 @@ return [
             'level' => \Monolog\Logger::DEBUG,
         ],
 
+        'upload' => [
+          'public_path' => __DIR__ . '/../public/upload/game/'
+        ],
+
         "db" => [
             "host" => "localhost",
             "dbname" => "xbox",

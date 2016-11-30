@@ -5,6 +5,8 @@ import { HttpModule }    from '@angular/http';
 
 
 import { AppComponent }         from './app.component';
+import { GamesComponent }      from './games/games.component';
+import { GameService }          from './game/game.service';
 
 import { AppRoutingModule }     from './app-routing.module';
 
@@ -17,7 +19,10 @@ import { AppRoutingModule }     from './app-routing.module';
     ],
     declarations: [
         AppComponent,
+        GamesComponent,
+
     ],
-    bootstrap: [ AppComponent ]
+    bootstrap: [ AppComponent ],
+    providers: [ GameService ],
 })
 export class AppModule { }

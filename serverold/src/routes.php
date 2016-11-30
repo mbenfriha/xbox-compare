@@ -2,13 +2,13 @@
 include('simple_html_dom.php');
 include('function.php');
 
-$app->add(function ($req, $res, $next) {
+/*$app->add(function ($req, $res, $next) {
     $response = $next($req, $res);
     return $response
-        ->withHeader('Access-Control-Allow-Origin', 'http://localhost:63342')
+        ->withHeader('Access-Control-Allow-Origin', $_SERVER['HTTP_ORIGIN'])
         ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
         ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-});
+});*/
 
 $app->get('/games', function ($request, $response, $args) {
     $sth = $this->db->prepare("SELECT * FROM game ORDER BY name");
@@ -41,9 +41,8 @@ $app->get('/game/[{id}]', function ($request, $response, $args) {
     return $this->response->withJson(["game" => $game, "prices" => $prices]);
 });
 
-
-$app->post('/game', function ($request, $response) {
-
+$app->post('/game/parse', function ($request)
+{
     $country = [
         'ZAR' => 1,
         'ARS' => 2,
@@ -62,17 +61,7 @@ $app->post('/game', function ($request, $response) {
         'USD' => 15
     ];
 
-    $input = $request->getParsedBody();
-
-    $sth = $this->db->prepare("SELECT id FROM game WHERE id_game = ?");
-    $sth->execute(array(end(explode('/', $input['link']))));
-
-    if($sth->fetch())
-        return $this->response->withJson(["status" => 409, "error"=>true, "message" => "Ce jeu existe déjà"]);
-    if(!getGame($input['link']))
-        return $this->response->withJson(["status" => 400, "error"=>true, "message" => "Jeux introuvable, vérifiez le lien"]);
-    else
-        $game = getGame($input['link']);
+    $game = getGame(urldecode($request->getParsedBody()['link']));
 
     $sth = $this->db->prepare('INSERT INTO game(id_game, game_slug, name, thumb, background, created_at, updated_at)
                                 VALUES (:id_game, :game_slug, :name, :thumb, :background, :created_at, :updated_at)');
@@ -93,14 +82,29 @@ $app->post('/game', function ($request, $response) {
 
 
     foreach($game['prices'] as $k => $v) {
-         $sth2->bindValue(':country_id', $k, PDO::PARAM_INT);
+        $sth2->bindValue(':country_id', $k, PDO::PARAM_INT);
         $sth2->bindValue(':game_id', $id, PDO::PARAM_INT);
         $sth2->bindValue(':value', $v, PDO::PARAM_STR);
         $sth2->bindValue(':value_converter', converCurrency(array_search($k, $country), 'EUR', $v), PDO::PARAM_STR);
         $sth2->execute();
     }
 
-    return $this->response->withJson(["status" => 201, "error"=>false, "message" => "Jeu ajouté avec succès !"]);
+    return $this->response->withJson(["message" => "Jeu ajouté avec succès !"]);
+});
+
+$app->post('/game', function ($request, $response) {
+
+    $input = $request->getParsedBody();
+
+    $sth = $this->db->prepare("SELECT id FROM game WHERE id_game = ?");
+    $sth->execute(array(end(explode('/', $input['link']))));
+
+    if($sth->fetch())
+        return $this->response->withStatus(409)->withJson(["message" => "Ce jeu existe déjà"]);
+
+    curl_post_async('http://xbox:8889/game/parse', $input);
+
+    return $this->response->withJson(["message" => "ajout du jeux, veuillez patienter"]);
 });
 
 $app->put('/game/[{id}]', function ($request, $response, $args) {
@@ -117,17 +121,8 @@ $app->put('/game/[{id}]', function ($request, $response, $args) {
         $sth->execute($game);
     } catch (PDOException $e) {
         if ($e->errorInfo[1] == 1062) {
-            return $this->response->withJson(["status" => 409, "error"=>true, "message" => "Impossible de mettre à jours les prix"]);
+            return $this->response->withStatus(409)->withJson(["message" => "Impossible de mettre à jours les prix"]);
         }
     }
-    return $this->response->withJson(["status" => 201, "error"=>false, "message" => "Les prix ont bien été mis à jour !"]);
-});
-
-
-$app->get('/test', function($request, $response, $arg){
-
-    $from_currency    = 'ARS';
-    $to_currency    = 'EUR';
-    $amount            = 2174;
-    var_dump(converCurrency($from_currency,$to_currency,$amount));
+    return $this->response->withJson(["message" => "Les prix ont bien été mis à jour !"]);
 });
