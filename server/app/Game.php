@@ -13,7 +13,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Game extends Model
 {
-    protected $fillable = ['id', 'slug', 'name', 'thumb', 'background'];
+    public $incrementing = false;
+    protected $fillable = ['id', 'slug', 'name'];
 
     public function prices()
     {

@@ -1,10 +1,9 @@
 <?php
-
+namespace App\Services\Interfaces;
 
 interface GameService
 {
     public function lister();
-    public function ajouter(array $information);
+    public function ajouter($msMsLink);
     public function modifierPrix($game_id);
-
 }

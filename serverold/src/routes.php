@@ -44,21 +44,21 @@ $app->get('/game/[{id}]', function ($request, $response, $args) {
 $app->post('/game/parse', function ($request)
 {
     $country = [
-        'ZAR' => 1,
-        'ARS' => 2,
-        'BRL' => 3,
-        'CAD' => 4,
-        'COP' => 5,
-        'EUR' => 6,
-        'HKD' => 7,
-        'INR' => 8,
-        'JPY' => 9,
-        'HUF' => 10,
-        'MXN' => 11,
-        'RUB' => 12,
-        'SGD' => 13,
-        'TWD' => 14,
-        'USD' => 15
+         => 1,
+         => 2,
+         => 3,
+         => 4,
+         => 5,
+         => 6,
+         => 7,
+         => 8,
+         => 9,
+         => 10,
+         => 11,
+         => 12,
+         => 13,
+         => 14,
+         => 15
     ];
 
     $game = getGame(urldecode($request->getParsedBody()['link']));
@@ -85,7 +85,7 @@ $app->post('/game/parse', function ($request)
         $sth2->bindValue(':country_id', $k, PDO::PARAM_INT);
         $sth2->bindValue(':game_id', $id, PDO::PARAM_INT);
         $sth2->bindValue(':value', $v, PDO::PARAM_STR);
-        $sth2->bindValue(':value_converter', converCurrency(array_search($k, $country), 'EUR', $v), PDO::PARAM_STR);
+        $sth2->bindValue(':value_converter', converCurrency(array_search($k, ), 'EUR', $v), PDO::PARAM_STR);
         $sth2->execute();
     }
 
