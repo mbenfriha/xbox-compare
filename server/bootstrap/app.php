@@ -79,6 +79,7 @@ $app->singleton(
 
 $app->register(App\Providers\AppServiceProvider::class);
 $app->register(Weidner\Goutte\GoutteServiceProvider::class);
+$app->register(Illuminate\Mail\MailServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
@@ -98,5 +99,9 @@ class_alias('Weidner\Goutte\GoutteFacade', 'Goutte');
 $app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
     require __DIR__.'/../app/Http/routes.php';
 });
+
+$app->configure('services');
+$app->configure('mail');
+
 
 return $app;

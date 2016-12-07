@@ -20,4 +20,9 @@ class Game extends Model
     {
         return $this->hasMany('App\Price');
     }
+
+    public function alert()
+    {
+        return $this->hasMany('App\Alert');
+    }
 }

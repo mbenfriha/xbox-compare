@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
         DB::table('countries')->delete();
         DB::table('games_prices')->delete();
         DB::table('games')->delete();
+        DB::table('users_alert')->delete();
+        DB::table('users')->delete();
 
         $countries = [
             ['name' => 'south-africa',		'currency_name' => 'ZAR', 'lang' => 'en-ZA'],

@@ -6,13 +6,21 @@ use App\Game;
 use App\Services\Implementations\GameServiceImpl;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Lang;
 
 class GameController extends Controller
 {
     public function getLastList()
     {
+
         return response()->json(app(GameServiceImpl::class)->lastLister());
+    }
+
+    public function filter()
+    {
+        Input::get('price') ? $price =Input::get('price') : $price = 1000;
+        return response()->json(app(GameServiceImpl::class)->filter(Input::get('page'), Input::get('order'), Input::get('asc'), $price));
     }
 
     public function getList()
@@ -25,6 +33,11 @@ class GameController extends Controller
         return response()->json(app(GameServiceImpl::class)->single($id));
     }
 
+    public function find(Request $request)
+    {
+        return response()->json(app(GameServiceImpl::class)->find($request->name));
+    }
+
     public function post(Request $request)
     {
 
@@ -34,8 +47,8 @@ class GameController extends Controller
             return response()->json(['message' => 'exist']);
         }catch (ModelNotFoundException $e)
         {
-//            return response()->json(['message' => app(GameServiceImpl::class)->ajouter($request->link)]);
-           $this->action_post_async("http://xbox:8889/game/parse", $request->only('link'));
+         return response()->json(['message' => app(GameServiceImpl::class)->ajouter($request->link)]);
+  //         $this->action_post_async("http://xbox:8889/game/parse", $request->only('link'));
             return response()->json(['message' => 'wait_post']);
         }
     }
@@ -46,17 +59,21 @@ class GameController extends Controller
         $diff  = abs(time() - strtotime($game->update_at));
         $min = floor( ($diff - $diff % 60) / 60 ) % 60;
 
-        if ($min < 60){
+        if ($min < 0){
             return response()->json(['message' => 'time']);
         }
 
 
-        $this->action_post_async("http://xbox:8889/game/refresh", ["id" => $id]);
+      return response()->json(app(GameServiceImpl::class)->modifierPrix($id));
+        //$this->action_post_async("http://xbox:8889/game/refresh", ["id" => $id]);
         return response()->json(['message' => 'wait_refresh']);
 
 
+    }
 
-//      return response()->json(app(GameServiceImpl::class)->modifierPrix($id));
+    public function alert(Request $request)
+    {
+        return response()->json(app(GameServiceImpl::class)->alertUser($request->email, $request->game_id, $request->price));
     }
 
     public function post_async(Request $request)

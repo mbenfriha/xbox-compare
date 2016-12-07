@@ -8,8 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
-class User extends Model
+class Alert extends Model
 {
-    protected $fillable = ['email'];
+    protected $table = 'users_alert';
+    protected $fillable = ['email', 'game_id', 'price', 'send'];
 
+    public function game()
+    {
+        return $this->belongsTo('App\Game');
+    }
 }

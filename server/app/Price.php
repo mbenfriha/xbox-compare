@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Price extends Model
 {
     protected $table = 'games_prices';
-    protected $fillable = ['value', 'euro_value', 'country_id'];
+    protected $fillable = ['value', 'euro_value', 'country_id', 'discount'];
 
     public function game()
     {
