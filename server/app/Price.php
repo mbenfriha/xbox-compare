@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: patchouni
- * Date: 26/11/2016
- * Time: 00:49
- */
 
 namespace App;
 
@@ -13,10 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Price extends Model
 {
-    protected $fillable = ['value', 'euro_value'];
+    protected $table = 'games_prices';
+    protected $fillable = ['value', 'euro_value', 'country_id', 'discount'];
 
     public function game()
     {
         return $this->belongsTo('App\Game');
+    }
+
+    public function country()
+    {
+        return $this->belongsTo('App\Country');
+    }
+
+    public function getLowestAttribute ()
+    {
+        return $this->prices->min('price');
     }
 }

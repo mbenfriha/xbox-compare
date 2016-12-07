@@ -1,0 +1,4 @@
+/vendor
+.env
+mail.php
+public/img/
