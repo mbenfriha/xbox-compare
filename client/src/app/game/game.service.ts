@@ -10,19 +10,73 @@ import { Game } from './game';
 export class GameService {
 
     private headers = new Headers({'Content-Type': 'application/json'});
-    private apiUrl = 'http://xbox:8889/';  // URL to web api
+    private apiUrl = 'http://api.xbox-store-compare.com/';  // URL to web api
 
     constructor(private http: Http) { }
 
-    getGames(): Observable<Game[]> {
+    getGames(): Observable<Array<Game>> {
         return this.http.get(this.apiUrl + 'games')
             .map(res => res.json())
-            .catch(this.handleError);
+            .catch((e) => {
+                return Observable.throw(
+                    new Error(`${ e.status } ${ e.statusText }`)
+                );
+            });
 
        /* return this.http.get(this.apiUrl + 'games')
             .toPromise()
             .then(response => response.json().data as Game[]) // bizare
             .catch(this.handleError); */
+    }
+    getGamesFilter(page: number, order: string, asc: string, price: number): Observable<Array<Game>> {
+
+        return this.http.get(this.apiUrl + 'game/filter?page='+ page +'&asc='+ asc +'&order='+ order +'&price='+ price )
+            .map(res => res.json())
+            .catch((e) => {
+                return Observable.throw(
+                    new Error(`${ e.status } ${ e.statusText }`)
+                );
+            });
+    }
+
+    getLastGames(): Observable<Array<Game>> {
+        return this.http.get(this.apiUrl + 'games/last')
+            .map(res => res.json())
+            .catch((e) => {
+                return Observable.throw(
+                    new Error(`${ e.status } ${ e.statusText }`)
+                );
+            });
+    }
+
+    getGame(id: any): Observable<Game> {
+        return this.http.get(this.apiUrl + 'game/' + id)
+            .map(res => res.json())
+            .catch((e) => {
+                return Observable.throw(
+                    new Error(`${ e.status } ${ e.statusText }`)
+                );
+            });
+    }
+
+    refreshGame(id: any): Observable<Game> {
+        return this.http.get(this.apiUrl + 'game/refresh/' + id)
+            .map(res => res.json())
+            .catch((e) => {
+                return Observable.throw(
+                    new Error(`${ e.status } ${ e.statusText }`)
+                );
+            });
+    }
+
+    getGold(): Observable<Array<Game>> {
+        return this.http.get(this.apiUrl + 'gold')
+            .map(res => res.json())
+            .catch((e) => {
+                return Observable.throw(
+                    new Error(`${ e.status } ${ e.statusText }`)
+                );
+            });
     }
 
     private handleError(error: any): Promise<any> {

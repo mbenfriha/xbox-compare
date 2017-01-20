@@ -1,0 +1,13 @@
+<div id="captioned-gallery" (click)="view()">
+    <figure class="slider">
+        <figure  *ngFor="let game of games">
+            <a [routerLink]="['/game', game.id]">
+                <img [src]="link + game.id + img" alt>
+                <figcaption>{{game.name}} <br>
+                    {{game.prices[0].euro_value | convertCurrency:myGlobals.currency}}
+
+                </figcaption>
+            </a>
+        </figure>
+    </figure>
+</div>

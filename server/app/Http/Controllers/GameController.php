@@ -6,6 +6,7 @@ use App\Game;
 use App\Services\Implementations\GameServiceImpl;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Lang;
 
@@ -26,6 +27,10 @@ class GameController extends Controller
     public function getList()
     {
         return response()->json(app(GameServiceImpl::class)->lister());
+    }
+    public function getListGold()
+    {
+        return response()->json(app(GameServiceImpl::class)->listerGold());
     }
 
     public function getGame($id)
@@ -48,7 +53,7 @@ class GameController extends Controller
         }catch (ModelNotFoundException $e)
         {
          return response()->json(['message' => app(GameServiceImpl::class)->ajouter($request->link)]);
-  //         $this->action_post_async("http://xbox:8889/game/parse", $request->only('link'));
+         //  $this->action_post_async("http://xbox:8889/game/parse", $request->only('link'));
             return response()->json(['message' => 'wait_post']);
         }
     }
@@ -56,16 +61,16 @@ class GameController extends Controller
     public function refresh($id)
     {
         $game = Game::findOrFail($id);
-        $diff  = abs(time() - strtotime($game->update_at));
+        $diff  = abs(time() - strtotime($game->updated_at));
         $min = floor( ($diff - $diff % 60) / 60 ) % 60;
 
-        if ($min < 0){
-            return response()->json(['message' => 'time']);
+        if ($min < 1){
+            return response()->json(['message' => 'time', "minute" => $min]);
         }
 
 
-      return response()->json(app(GameServiceImpl::class)->modifierPrix($id));
-        //$this->action_post_async("http://xbox:8889/game/refresh", ["id" => $id]);
+     // return response()->json(app(GameServiceImpl::class)->modifierPrix($id));
+        $this->action_post_async("http://xbox:8889/game/refresh", ["id" => $id]);
         return response()->json(['message' => 'wait_refresh']);
 
 
@@ -110,5 +115,27 @@ class GameController extends Controller
 
         fwrite($fp, $out);
         fclose($fp);
+    }
+
+    public function file($path, $filename)
+    {
+
+        $path1 = storage_path() . '/' . $path .'/'. $filename;
+
+        if(!File::exists($path1)) abort(404);
+
+        $file = File::get($path1);
+        $type = File::mimeType($path1);
+
+        $response = Response::make($file, 200);
+        $response->header("Content-Type", $type);
+
+        return $response;
+    }
+
+    public function gold($id)
+    {
+
+        return response()->json(app(GameServiceImpl::class)->addGold($id));
     }
 }

@@ -15,10 +15,13 @@
 $app->post('game', 'GameController@post');
 $app->get('game/filter', 'GameController@filter');
 $app->get('games', 'GameController@getList');
+$app->get('gold', 'GameController@getListGold');
 $app->post('game/parse', 'GameController@post_async');
 $app->post('game/refresh', 'GameController@refresh_async');
 $app->get('game/{id}', 'GameController@getGame');
+$app->get('gold/{id}', 'GameController@gold');
 $app->get('games/last', 'GameController@getLastList');
 $app->get('game/refresh/{id}', 'GameController@refresh');
 $app->post('game/find', 'GameController@find');
 $app->post('alert', 'GameController@alert');
+$app->get('images/{path}/{filename}', 'GameController@file');

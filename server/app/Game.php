@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: patchouni
- * Date: 26/11/2016
- * Time: 00:49
- */
 
 namespace App;
 
@@ -19,6 +13,11 @@ class Game extends Model
     public function prices()
     {
         return $this->hasMany('App\Price');
+    }
+
+    public function gold()
+    {
+        return $this->hasMany('App\Gold');
     }
 
     public function alert()

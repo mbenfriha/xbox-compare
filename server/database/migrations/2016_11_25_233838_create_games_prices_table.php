@@ -21,6 +21,8 @@ class CreateGamesPricesTable extends Migration
             $table->unsignedInteger('country_id');
             $table->float('value');
             $table->float('euro_value');
+            $table->float('value_discount');
+            $table->float('euro_value_discount');
 
             $table->timestamps();
 

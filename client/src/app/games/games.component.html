@@ -1,9 +1,63 @@
-<h2>My Games</h2>
 
-<ul class="games">
-    <li *ngFor="let game of games">
-        <span class="badge">{{game.id}}</span>
-        <span>{{game.name}}</span>
-        <img [src]="game.thumb" alt="g">
-    </li>
-</ul>
+
+<div class="container green-xbox" *ngIf="games">
+
+    <div class="row sortBy center">
+        <div class="col s4">
+            {{ 'ALL.ASCENDING' | translate }} <br>
+            <span [ngClass]="{'active-span': asc == 'asc'}" class="col s12 m4 l4" (click)="setAsc('asc')"
+                  style="font-size: 0.7em;">{{ 'ALL.ASCENDING' | translate }}</span>
+            <span [ngClass]="{'active-span': asc == 'desc'}" class="col s12 m4 l4" (click)="setAsc('desc')"
+                    style="font-size: 0.7em;">{{ 'ALL.DESCENDING' | translate }}</span>
+        </div>
+        <div class="col s4">
+            {{ 'ALL.SORT' | translate }} <br>
+           <span [ngClass]="{'active-span': order == 'name'}"
+                 class="col s12 m4 l4" (click)="setOrder('name')">{{ 'ALL.NAME' | translate }}</span>
+           <span [ngClass]="{'active-span': order == 'created_at'}"
+                 class="col s12 m4 l4" (click)="setOrder('created_at')">{{ 'ALL.DATE' | translate }}</span>
+        </div>
+        <div class="col s4"> {{ 'ALL.MAXPRICE' | translate }}  <br>
+            <span [ngClass]="{'active-span': price == 10}" class="col s12 m3 l3" (click)="setPrice(10)">-10</span>
+            <span [ngClass]="{'active-span': price == 30}" class="col s12 m3 l3" (click)="setPrice(30)">-30</span>
+            <span [ngClass]="{'active-span': price == 50}" class="col s12 m3 l3" (click)="setPrice(50)">-50</span>
+            <span [ngClass]="{'active-span': price == 1000}" class="col s12 m3 l3" (click)="setPrice(1000)">Tous</span>
+        </div>
+    </div>
+
+    <div *ngIf="empty" class="row">
+            <span class="empty center col s12">Aucun résultat</span>
+    </div>
+    <ul class="row games" *ngIf="!empty">
+        <li *ngFor="let game of games.game" class="game-list col s12 m6 l3" >
+            <a class="col s12"
+                [routerLink]="['/game', game.id]">
+                <img [src]="link + game.id + cover">
+                <div class="price">
+                    <span class="col s12 game-name">{{game.name}}</span>
+                    <div class="chip green center">
+                        {{getPrice(game.prices, '-') | convertCurrency:myGlobals.currency}}
+                    </div>
+                </div>
+            </a>
+        </li>
+
+    </ul>
+    <ul class="pagination center" *ngIf="!empty">
+        <li *ngIf="games.current_page > 1">
+            <a [routerLink]="['/games', games.current_page - 1]"><i class="material-icons">chevron_left</i></a>
+        </li>
+        <li *ngIf="games.current_page == 1" class="disabled">
+            <i class="material-icons">chevron_left</i>
+        </li>
+        <li *ngFor="let nb of nbr" [ngClass]="{active: games.current_page == nb+1}">
+            <a [routerLink]="['/games', nb + 1]">{{nb + 1}}</a>
+        </li>
+        <li class="waves-effect" *ngIf="games.nbr_page > games.current_page">
+            <a [routerLink]="['/games', games.current_page + 1]"><i class="material-icons">chevron_right</i></a>
+        </li>
+        <li class="waves-effect" *ngIf="games.nbr_page == games.current_page" class="disabled">
+           <i class="material-icons">chevron_right</i>
+        </li>
+    </ul>
+</div>

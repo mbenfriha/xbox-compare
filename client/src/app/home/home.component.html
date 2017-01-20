@@ -1,0 +1,39 @@
+<slider-games></slider-games>
+
+<div class="container hide-on-med-and-down">
+    <div class="row gwg">
+        <div class="col s6 valign-wrapper">
+            <div class="valign">
+                <img src="http://compass.xbox.com/assets/1c/93/1c93fdc8-0f06-4f34-a54c-7ac2a45c58ae.png?n=GwG_Hero-logo_440x250.png" alt="">
+            </div>
+        </div>
+
+        <div class="carousel col s6">
+            <div *ngFor="let gold of golds">
+                <a class="carousel-item" href="#one!">
+                    <img [src]="link + gold.game.id + img">
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div *ngIf="golds" class="hide-on-large-only gwg container">
+    <div class="row">
+        <div class="col s12">
+            <img src="http://compass.xbox.com/assets/1c/93/1c93fdc8-0f06-4f34-a54c-7ac2a45c58ae.png?n=GwG_Hero-logo_440x250.png" alt="">
+        </div>
+    </div>
+    <div class="row">
+        <div class="carousel" *ngIf="golds">
+            <div *ngFor="let gold of golds">
+                <a class="carousel-item" href="#one!">
+                    <img [src]="link + gold.game.id + img">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+

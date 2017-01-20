@@ -1,0 +1,25 @@
+{
+  "ALL": {
+    "ASCENDING": "CROISSANT",
+    "DESCENDING": "DECROISSANT",
+    "NAME": "NOM",
+    "DATE": "DATE",
+    "ALLGAMES": "TOUS",
+    "ORDER": "ORDRE :",
+    "SORT": "TRIER PAR :",
+    "MAXPRICE": "PRIX MAX :"
+  },
+  "NAV": {
+    "GAMES": "LES JEUX",
+    "GIFT": "CARTE CADEAU",
+    "DEAL": "BON PLAN",
+    "BUY": "COMMENT ACHETER",
+    "ADD": "AJOUTER UN JEU",
+    "SEARCH": "Rechercher.."
+  },
+  "SINGLE": {
+    "ORIGIN_PRICE": "PRIX D'ORIGINE",
+    "CONVERT_PRICE": "PRIX CONVERTI",
+    "LAST_REFRESH": "Dernier rafraîchissement"
+  }
+}

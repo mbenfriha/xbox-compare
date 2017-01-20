@@ -7,6 +7,7 @@ use App\Game;
 use App\Price;
 use App\Services\Interfaces\GameService;
 use App\User;
+use App\Gold;
 use Goutte;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Mail;
@@ -20,11 +21,16 @@ class GameServiceImpl implements GameService
         }])->orderBy('name', 'asc')->get();
     }
 
+    public function listerGold()
+    {
+        return Gold::with('game')->get();
+    }
+
     public function lastLister()
     {
         return Game::with(['prices' => function ($query) {
-            $query->orderBy('euro_value', 'asc');
-        }])->orderBy('created_at', 'desc')->limit(10)->get();
+            $query->orderBy('euro_value', 'asc')->where('euro_value', '>', 0);
+        }])->orderBy('created_at', 'desc')->limit(4)->get();
     }
 
     public function ajouter($msLink)
@@ -46,7 +52,13 @@ class GameServiceImpl implements GameService
         $l['path'] = ltrim($l2, '/');
         $msLink = implode('/', $l);
 
-        $crawler = Goutte::request('GET', $msLink);
+        $client = new Client();
+        $client->setHeader('User-Agent', "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.101 Safari/537.36");
+
+
+        $crawler = $client->request('GET', $msLink);
+        print_r($client);
+        exit();
 
         $msLinkData = explode('/', $msLink);
 
@@ -54,12 +66,24 @@ class GameServiceImpl implements GameService
             mkdir('img/'. end($msLinkData));
         }
 
-        if($file = file_get_contents(explode('(', $crawler->filter('.context-image-cover')->first()->attr('style'))[1])) {
-            file_put_contents('img/' . end($msLinkData) . '/background.jpeg', $file);
-        }
+        if(explode('(', $crawler->filter('.context-image-cover')->first()->attr('style'))[1][0] == "/") {
+            if ($file = file_get_contents(explode('?', 'https:' . explode('(', $crawler->filter('.context-image-cover')->first()->attr('style'))[1])[0])) {
+                file_put_contents('img/' . end($msLinkData) . '/background.jpeg', $file);
+            }
 
-        if($file = file_get_contents($crawler->filter('.srv_appHeaderBoxArt img')->first()->attr('src'))) {
-            file_put_contents('img/'. end($msLinkData) . '/cover.jpeg', $file);
+            if ($file = file_get_contents('https:' . explode('?', $crawler->filter('.srv_appHeaderBoxArt img')->first()->attr('src'))[0])) {
+                file_put_contents('img/' . end($msLinkData) . '/cover.jpeg', $file);
+            }
+        }
+        else {
+
+            if ($file = file_get_contents(explode('(', $crawler->filter('.context-image-cover')->first()->attr('style'))[1])) {
+                file_put_contents('img/' . end($msLinkData) . '/background.jpeg', $file);
+            }
+
+            if ($file = file_get_contents($crawler->filter('.srv_appHeaderBoxArt img')->first()->attr('src'))) {
+                file_put_contents('img/' . end($msLinkData) . '/cover.jpeg', $file);
+            }
         }
 
         $game = Game::create([
@@ -73,6 +97,9 @@ class GameServiceImpl implements GameService
             $msLinkData[3] = $country->lang;
 
             $value = 0;
+            $value_discount = 0;
+            $euro_value_discount = 0;
+            $discount = false;
 
             $crawler = Goutte::request('GET', implode('/', $msLinkData));
                 if($crawler->filter('.srv_microdata meta')->count()) {
@@ -87,31 +114,30 @@ class GameServiceImpl implements GameService
                 $converted_value = round($crawler2->filter(".bld")->first()->text(), 2);
             }
 
-            $game->prices()->create([
-                'value'         => $value,
-                'euro_value'    => $converted_value,
-                'country_id'    => $country->id
-            ]);
-
 
             if($crawler->filter('.price-disclaimer')->count() > 2){
-                $value = $crawler->filter('.srv_microdata')->eq(3)->filter('meta')->first()->attr('content');
 
-                if ($country->currency_name == $defaultCurrency || $value == 0)
-                    $converted_value = $value;
+                $value_discount = $crawler->filter('.srv_microdata')->eq(3)->filter('meta')->first()->attr('content');
+
+                if ($country->currency_name == $defaultCurrency || $value_discount == 0)
+                    $euro_value_discount = $value_discount;
                 else
                 {
-                    $crawler2 = Goutte::request('GET', "http://www.google.com/finance/converter?a={$value}&from={$country->currency_name}&to={$defaultCurrency}");
-                    $converted_value = round($crawler2->filter(".bld")->first()->text(), 2);
+                    $crawler2 = Goutte::request('GET', "http://www.google.com/finance/converter?a={$value_discount}&from={$country->currency_name}&to={$defaultCurrency}");
+                    $euro_value_discount = round($crawler2->filter(".bld")->first()->text(), 2);
                 }
-
-                $game->prices()->create([
-                    'value'         => $value,
-                    'euro_value'    => $converted_value,
-                    'country_id'    => $country->id,
-                    'discount'      => true
-                ]);
+                $discount = true;
             }
+
+            $game->prices()->create([
+                'value'                 => $value,
+                'euro_value'            => $converted_value,
+                'country_id'            => $country->id,
+                'value_discount'        => $value_discount,
+                'euro_value_discount'   => $euro_value_discount,
+                'discount'  => $discount
+            ]);
+
         }
         return $game;
     }
@@ -198,7 +224,7 @@ class GameServiceImpl implements GameService
     public function filter($page, $order, $asc, $price = 1000)
     {
 
-        $limit = 5;
+        $limit = 12;
         $page = $page - 1;
         $offset = $page * $limit;
 
@@ -241,6 +267,14 @@ class GameServiceImpl implements GameService
         ]);
 
         return response()->json(['message' => 'alert_add']);
+    }
+
+    public function addGold($id)
+    {
+        $game = Game::find($id);
+        $game->gold()->create([]);
+
+        return $game;
     }
 
 }
