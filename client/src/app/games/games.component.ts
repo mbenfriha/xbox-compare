@@ -16,7 +16,7 @@ export class GamesComponent implements OnInit {
     games: Game[];
 
     private sub: any;
-    link = "http://xbox:8889/img/";
+    link = "http://api.xbox-store-compare.com/img/";
     background = "/background.jpeg";
     cover = "/cover.jpeg";
     page = 1;

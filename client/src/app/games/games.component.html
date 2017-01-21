@@ -4,7 +4,7 @@
 
     <div class="row sortBy center">
         <div class="col s4">
-            {{ 'ALL.ASCENDING' | translate }} <br>
+            {{ 'ALL.ORDER' | translate }} <br>
             <span [ngClass]="{'active-span': asc == 'asc'}" class="col s12 m4 l4" (click)="setAsc('asc')"
                   style="font-size: 0.7em;">{{ 'ALL.ASCENDING' | translate }}</span>
             <span [ngClass]="{'active-span': asc == 'desc'}" class="col s12 m4 l4" (click)="setAsc('desc')"
@@ -35,7 +35,7 @@
                 <img [src]="link + game.id + cover">
                 <div class="price">
                     <span class="col s12 game-name">{{game.name}}</span>
-                    <div class="chip green center">
+                    <div class="chip green center white-text">
                         {{getPrice(game.prices, '-') | convertCurrency:myGlobals.currency}}
                     </div>
                 </div>

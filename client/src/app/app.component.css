@@ -1,6 +1,19 @@
 @import url(http://fonts.googleapis.com/css?family=Montserrat+Alternates);
 
 
+main {
+    margin:0;
+    padding:0;
+    background: url(http://www.gamersblog.fr/wp-content/uploads/2014/10/xbox_controller_wallpaper_by_ohsneezeme-d5wu4gp.jpg) no-repeat right fixed;
+    -webkit-background-size: cover; /* pour anciens Chrome et Safari */
+    background-size: cover; /* version standardisée */
+}
+
+main {
+    padding-bottom: 4em;
+}
+
+
 .green-xbox {
     background-color: #107c0f;
 }
@@ -173,13 +186,12 @@
 }
 .page-footer {
     position: relative;
-    margin-top: 4em;
+    margin-top: 0em;
 }
 
 .page-footer hr {
     max-width: 125px;
     font-size: 85%;
-    margin-top: 5em;
     border-top: 2px solid #107c0f !important;
     border: 0;
 }
