@@ -1,27 +1,79 @@
 
 
-<div class="container green-xbox" *ngIf="games">
+<div class="container green-xbox bg" *ngIf="games">
 
     <div class="row sortBy center">
-        <div class="col s4">
+        <div class="col s12 m6 l3 allSort">
             {{ 'ALL.ORDER' | translate }} <br>
-            <span [ngClass]="{'active-span': asc == 'asc'}" class="col s12 m4 l4" (click)="setAsc('asc')"
-                  style="font-size: 0.7em;">{{ 'ALL.ASCENDING' | translate }}</span>
-            <span [ngClass]="{'active-span': asc == 'desc'}" class="col s12 m4 l4" (click)="setAsc('desc')"
-                    style="font-size: 0.7em;">{{ 'ALL.DESCENDING' | translate }}</span>
+            <div class="col s6 m6 l6" (click)="setAsc('asc')">
+
+                <a [ngClass]="{'disabled': asc == 'asc'}"
+                   class="btn waves-effect waves-light white-text grey darken-4 button-filter hoverable">
+                    {{ 'ALL.ASCENDING' | translate }}
+                </a>
+            </div>
+            <div  class="col s6 m6 l6" (click)="setAsc('desc')">
+                <a [ngClass]="{'disabled': asc == 'desc'}"
+                   class="btn waves-effect waves-light white-text grey darken-4 button-filter hoverable">
+                    {{ 'ALL.DESCENDING' | translate }}
+                </a>
+            </div>
         </div>
-        <div class="col s4">
+        <div class="col s12 m6 l3 allSort">
             {{ 'ALL.SORT' | translate }} <br>
-           <span [ngClass]="{'active-span': order == 'name'}"
-                 class="col s12 m4 l4" (click)="setOrder('name')">{{ 'ALL.NAME' | translate }}</span>
-           <span [ngClass]="{'active-span': order == 'created_at'}"
-                 class="col s12 m4 l4" (click)="setOrder('created_at')">{{ 'ALL.DATE' | translate }}</span>
+           <div class="col s6 m6 l6" (click)="setOrder('name')">
+               <a [ngClass]="{'disabled': order == 'name'}"
+                  class="btn waves-effect waves-light white-text grey darken-4 button-filter hoverable">
+                   {{ 'ALL.NAME' | translate }}
+               </a>
+           </div>
+           <div class="col s6 m6 l6" (click)="setOrder('created_at')">
+               <a [ngClass]="{'disabled': order == 'created_at'}"
+                  class="btn waves-effect waves-light white-text grey darken-4 button-filter hoverable">
+                   {{ 'ALL.DATE' | translate }}
+               </a>
+           </div>
         </div>
-        <div class="col s4"> {{ 'ALL.MAXPRICE' | translate }}  <br>
-            <span [ngClass]="{'active-span': price == 10}" class="col s12 m3 l3" (click)="setPrice(10)">-10</span>
-            <span [ngClass]="{'active-span': price == 30}" class="col s12 m3 l3" (click)="setPrice(30)">-30</span>
-            <span [ngClass]="{'active-span': price == 50}" class="col s12 m3 l3" (click)="setPrice(50)">-50</span>
-            <span [ngClass]="{'active-span': price == 1000}" class="col s12 m3 l3" (click)="setPrice(1000)">Tous</span>
+
+        <div class="col s12 m6 l3 allSort"> {{ 'ALL.MAXPRICE' | translate }}  <br>
+            <div class="col s3 m3 l3" (click)="setPrice(10)">
+                <a [ngClass]="{'disabled': price == 10}"
+                   class="btn waves-effect waves-light white-text grey darken-4 btn-floating hoverable">
+                    -10{{ 'MONEY' | translate }}
+                </a>
+            </div>
+            <div class="col s3 m3 l3" (click)="setPrice(30)">
+                <a [ngClass]="{'disabled': price == 30}"
+                   class="btn waves-effect waves-light white-text grey darken-4 btn-floating hoverable">
+                    -30{{ 'MONEY' | translate }}
+                </a>
+            </div>
+            <div class="col s3 m3 l3" (click)="setPrice(50)">
+                <a [ngClass]="{'disabled': price == 50}"
+                   class="btn waves-effect waves-light white-text grey darken-4 btn-floating hoverable">
+                -50{{ 'MONEY' | translate }}
+                </a>
+            </div>
+            <div class="col s3 m3 l3" (click)="setPrice(1000)">
+                <a [ngClass]="{'disabled': price == 1000}"
+                   class="btn waves-effect waves-light white-text grey darken-4 btn-floating hoverable">
+                    {{ 'ALL.ALLGAMES' | translate }}
+                </a>
+            </div>
+        </div>
+        <div class="col s12 m6 l3 allSort"> TYPE : <br>
+            <div class="col s6 m6 l6" (click)="setType('Games')">
+                <a [ngClass]="{'disabled': type == 'Games'}"
+                   class="btn waves-effect waves-light white-text grey darken-4 waves-light button-filter hoverable">
+                    {{ 'ALL.GAME' | translate }}
+                </a>
+            </div>
+            <div  class="col s6 m6 l6" (click)="setType('AddOns')">
+                <a [ngClass]="{'disabled': type == 'AddOns'}"
+                   class="btn waves-effect white-text grey darken-4 waves-light button-filter hoverable">
+                    Addons
+                </a>
+            </div>
         </div>
     </div>
 

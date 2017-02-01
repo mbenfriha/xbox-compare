@@ -4,6 +4,9 @@ import { Router }            from '@angular/router';
 import { Game }                from '../game/game';
 import { GameService }         from '../game/game.service';
 
+declare var jQuery:any;
+
+
 @Component({
     selector: 'my-games',
     templateUrl: 'home.component.html',
@@ -23,7 +26,6 @@ export class HomeComponent implements OnInit {
             .getGold()
             .subscribe((games: Game[]) => {
                 this.golds = games;
-                console.log(games);
             }, (err: any) => {
                 console.log(err);
                 this.golds = null;
@@ -31,9 +33,7 @@ export class HomeComponent implements OnInit {
     }
 
     ngAfterViewInit() {
-        $( document ).ready(function() {
 
-        });
     }
 
     ngOnInit(): void {

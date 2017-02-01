@@ -18,6 +18,10 @@ img {
     text-align: center;
 }
 
+.price .chip {
+    font-size: 1.3em;
+}
+
 .game-name {
     font-weight: 700;
     color: #fff;
@@ -25,6 +29,16 @@ img {
     margin-bottom: 15px;
     font-size: 12px;
     text-shadow: 0px 0px 2px black;
+
+}
+
+.button-filter {
+    font-size: 0.6em;
+    padding: 0em 1em;
+    width: 100%;
+}
+
+.button-filter:hover {
 
 }
 
@@ -66,9 +80,12 @@ img {
 }
 
 .active-span {
-    font-size: 1.2em;
-    border-color: black !important;
-    color: black;
+    background-color: black !important;
+    color: white !important;
+}
+
+.allSort {
+    margin-bottom: 2em;
 }
 
 .empty {

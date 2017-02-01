@@ -10,11 +10,33 @@ import { GameService }         from '../game/game.service';
 })
 export class AddComponent implements OnInit {
     games: Game[];
+    error = false;
+    wait = false;
 
     constructor(
         private gameService: GameService,
         private router: Router) { }
 
+
+    addGame(link: string) {
+        this.wait = true;
+        this.gameService
+            .addGame(link)
+            .subscribe((response: any) => {
+                if(response.message == false){
+                    this.wait = false;
+                    this.error = true;
+                }
+                else if(response.message == "exist"){
+                    this.router.navigate(['/game', response.game.id]);
+                }
+                else
+                this.router.navigate(['/game', response.message.id]);
+            }, (err: any) => {
+                console.log('erreur');
+            });
+
+    }
 
     ngOnInit(): void {}
 }

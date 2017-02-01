@@ -1,11 +1,58 @@
+main {
+    background-image:none
+}
+
+.allAddons {
+    overflow: scroll;
+    height: 23em;
+    margin-top: 2em;
+}
+
+.alladdon {
+    background-color: #107c0f;
+}
+
+.alladdon .diviser::after {
+    content: '';
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    height: 3px;
+    background: #333;
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%, hsla(0, 0%, 0%, 0)), color-stop(50%, hsla(180, 100%, 96%, 0.75)), color-stop(100%, hsla(0, 0%, 0%, 0)));
+    background: -webkit-linear-gradient(left, hsla(0, 0%, 0%, 0) 0%, hsla(180, 100%, 96%, 0.75) 50%, hsla(0, 0%, 0%, 0) 100%);
+    background: -moz-linear-gradient(left, hsla(0, 0%, 0%, 0) 0%, hsla(180, 100%, 96%, 0.75) 50%, hsla(0, 0%, 0%, 0) 100%);
+    background: -moz-linear-gradient(left, hsla(0, 0%, 0%, 0) 0%, hsla(180, 100%, 96%, 0.75) 50%, hsla(0, 0%, 0%, 0) 100%);
+    background: -ms-linear-gradient(left, hsla(0, 0%, 0%, 0) 0%, hsla(180, 100%, 96%, 0.75) 50%, hsla(0, 0%, 0%, 0) 100%);
+    background: -o-linear-gradient(left, hsla(0, 0%, 0%, 0) 0%, hsla(180, 100%, 96%, 0.75) 50%, hsla(0, 0%, 0%, 0) 100%);
+    background: linear-gradient(left, hsla(0, 0%, 0%, 0) 0%, hsla(180, 100%, 96%, 0.75) 50%, hsla(0, 0%, 0%, 0) 100%);
+}
+
+.alladdon h3 {
+    text-align: center;
+    color: white;
+    margin: 0;
+    padding: 1em;
+    position: relative;
+}
+
+.informations iframe {
+    width: 100%;
+}
+
+.content-game {
+    z-index: 2;
+    position: relative;
+}
+
 .image-cover {
-    padding-top: 56.25%;
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: -1;
+    z-index: 1;
     background-size: cover;
     background-position: top center;
 }
@@ -74,6 +121,22 @@
 
 .refresh_price_mobile a {
     margin-bottom: 1em;
+}
+.input-field label {
+    color: dimgrey;
+}
+.notifPrice {
+    margin-top: 9em;
+}
+
+table td {
+    padding: 0.5em;
+}
+table tr {
+    line-height: 1em;
+}
+table.striped>tbody>tr:nth-child(odd) {
+    background-color: rgba(242, 242, 242, 0.61);
 }
 
 .green-notif .achievement-banner, .green-notif .achievement-banner-big {
@@ -465,6 +528,8 @@
     border-radius: 50px;
     background-color: transparent;
     overflow: hidden;
+    z-index: 1000000;
+    top: 10px;
 }
 .red-notif .achievement-banner.animated, .red-notif .animated.achievement-banner-big {
     -webkit-animation: mainAnimationFramesRed linear 7.5s;

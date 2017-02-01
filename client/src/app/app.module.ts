@@ -3,6 +3,7 @@ import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
 import { HttpModule }    from '@angular/http';
 import { TranslateModule } from 'ng2-translate';
+//import { Ng2CompleterModule } from "ng2-completer";
 
 
 import { AppComponent }         from './app.component';
@@ -18,8 +19,8 @@ import { GameService }          from './game/game.service';
 import { AppRoutingModule }     from './app-routing.module';
 
 
-import { Currency }     from './currency.pipe.ts';
-import { Money }     from './money.pipe.ts';
+import { Currency }     from './currency.pipe';
+import { Money }     from './money.pipe';
 
 @NgModule({
     imports: [
@@ -28,6 +29,7 @@ import { Money }     from './money.pipe.ts';
         HttpModule,
         AppRoutingModule,
         TranslateModule.forRoot(),
+        //Ng2CompleterModule,
     ],
     declarations: [
         AppComponent,

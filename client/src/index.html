@@ -47,38 +47,18 @@
         ga('send', 'pageview');
 
     </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 </head>
 <body class="">
 
 <my-app class="my-app">
     <div class="loader-xbox"></div>
 </my-app>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
-
 <script>
     $( document ).ready(function(){
-        $(".button-collapse").sideNav({
-            closeOnClick: true
-        });
-
-            $('select').material_select();
-
-        $('.carousel').carousel();
-
-
-        $(function() {
-
-            $('.refresh-btn').click(function () {
-                $('.achievement-banner').css({'display': 'block'});
-                var el = $('.achievement-banner'),
-                        newone = el.clone(true);
-                el.before(newone);
-                $('.achievement-banner:last').remove();
-            });
-        });
+        $(".button-collapse").sideNav();
     })
 </script>
 

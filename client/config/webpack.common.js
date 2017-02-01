@@ -51,9 +51,10 @@ module.exports = {
         }),
 
         new webpack.ProvidePlugin({
-            jQuery: 'jquery',
-            $: 'jquery',
-            jquery: 'jquery'
+            $: "jquery",
+            jQuery: "jquery",
+            "window.jQuery": "jquery",
+            Hammer: "hammerjs/hammer",
         })
     ]
 };

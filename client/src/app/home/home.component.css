@@ -1,4 +1,9 @@
-
+.gwg {
+    margin-top: 2em;
+}
+.gwg img {
+    width: 100%;
+}
 .gwg-l {
     margin-top: 2vw;
 }

@@ -29,11 +29,10 @@ export class SliderComponent implements OnInit {
             .subscribe((games: Game[]) => {
                 this.games = games;
 
-                console.log(games);
             }, (err: any) => {
                 console.log(err);
                 this.games = null;
-            }, () => console.log(''));
+            }, () => console.log(this.games));
     }
 
     view(): void {

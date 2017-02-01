@@ -1,4 +1,5 @@
 {
+  "MONEY" : "€",
   "ALL": {
     "ASCENDING": "CROISSANT",
     "DESCENDING": "DECROISSANT",
@@ -7,7 +8,8 @@
     "ALLGAMES": "TOUS",
     "ORDER": "ORDRE :",
     "SORT": "TRIER PAR :",
-    "MAXPRICE": "PRIX MAX :"
+    "MAXPRICE": "PRIX MAX :",
+    "GAME": "JEUX"
   },
   "NAV": {
     "GAMES": "LES JEUX",

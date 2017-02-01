@@ -19,6 +19,14 @@ class CreateGamesTable extends Migration
             $table->string('id')->unique();
             $table->string('slug');
             $table->string('name');
+            $table->string('type');
+            $table->longText('description');
+            $table->string('video');
+            $table->string('studio');
+            $table->string('size');
+            $table->string('gamescore');
+            $table->string('addon_id');
+            $table->boolean('discount');
 
             $table->timestamps();
         });

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Game extends Model
 {
     public $incrementing = false;
-    protected $fillable = ['id', 'slug', 'name'];
+    protected $fillable = ['id', 'slug', 'name', 'type', 'description', 'video', 'studio', 'size', 'gamescore', 'addon_id', 'discount'];
 
     public function prices()
     {

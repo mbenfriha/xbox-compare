@@ -20,12 +20,13 @@ export class GamesComponent implements OnInit {
     background = "/background.jpeg";
     cover = "/cover.jpeg";
     page = 1;
-    order = "name";
-    asc = "asc";
+    order = "created_at";
+    asc = "desc";
     price = 1000;
     nbr: any[] = [];
     tAsc = true;
     empty= true;
+    type= 'Games';
 
 
     get myGlobals() { return myGlobals; }
@@ -36,9 +37,9 @@ export class GamesComponent implements OnInit {
         private route: ActivatedRoute) { }
 
 
-    getGamesFilter(page: number, order: string, asc: string, price: number): void {
+    getGamesFilter(page: number, order: string, asc: string, price: number, type: string): void {
         this.gameService
-            .getGamesFilter(page, order, asc, price)
+            .getGamesFilter(page, order, asc, price, type)
             .subscribe((games: any) => {
                 if(games.game == 'empty')
                     this.empty = true;
@@ -50,8 +51,6 @@ export class GamesComponent implements OnInit {
                         this.nbr.push(i);
                     }
 
-                    console.log(this.nbr);
-                    console.log(games);
                 }
             }, (err: any) => {
                 console.log(err);
@@ -63,14 +62,14 @@ export class GamesComponent implements OnInit {
         this.asc = asc;
         this.sub = this.route.params.subscribe(params => {
             this.page = params['nbr'];
-            this.getGamesFilter(this.page, this.order, this.asc, this.price);
+            this.getGamesFilter(this.page, this.order, this.asc, this.price, this.type);
         });
     }
     setOrder(order: string) {
         this.order = order;
         this.sub = this.route.params.subscribe(params => {
             this.page = params['nbr'];
-            this.getGamesFilter(this.page, this.order, this.asc, this.price);
+            this.getGamesFilter(this.page, this.order, this.asc, this.price, this.type);
         });
     }
 
@@ -78,7 +77,15 @@ export class GamesComponent implements OnInit {
         this.price = price;
         this.sub = this.route.params.subscribe(params => {
             this.page = params['nbr'];
-            this.getGamesFilter(this.page, this.order, this.asc, this.price);
+            this.getGamesFilter(this.page, this.order, this.asc, this.price, this.type);
+        });
+    }
+
+    setType(type: string) {
+        this.type = type;
+        this.sub = this.route.params.subscribe(params => {
+            this.page = params['nbr'];
+            this.getGamesFilter(this.page, this.order, this.asc, this.price, this.type);
         });
     }
 
@@ -92,7 +99,6 @@ export class GamesComponent implements OnInit {
             return val;
         }
 
-
         if(amount == '-')
             return finder(Math.min, prices, "euro_value");
         else
@@ -102,7 +108,7 @@ export class GamesComponent implements OnInit {
     ngOnInit(): void {
         this.sub = this.route.params.subscribe(params => {
             this.page = params['nbr'];
-            this.getGamesFilter(this.page, this.order, this.asc, this.price);
+            this.getGamesFilter(this.page, this.order, this.asc, this.price, this.type);
         });
     }
 

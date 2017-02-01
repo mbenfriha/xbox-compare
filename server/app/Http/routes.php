@@ -15,10 +15,12 @@
 $app->post('game', 'GameController@post');
 $app->get('game/filter', 'GameController@filter');
 $app->get('games', 'GameController@getList');
+$app->get('discount', 'GameController@getDiscount');
 $app->get('gold', 'GameController@getListGold');
 $app->post('game/parse', 'GameController@post_async');
 $app->post('game/refresh', 'GameController@refresh_async');
 $app->get('game/{id}', 'GameController@getGame');
+$app->get('game/addons/{id}', 'GameController@getAddons');
 $app->get('gold/{id}', 'GameController@gold');
 $app->get('games/last', 'GameController@getLastList');
 $app->get('game/refresh/{id}', 'GameController@refresh');

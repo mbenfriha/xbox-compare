@@ -2,6 +2,8 @@ import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params }   from '@angular/router';
 import { Location }                 from '@angular/common';
+import {DomSanitizer} from '@angular/platform-browser';
+
 
 
 import { Game }                from './game';
@@ -24,13 +26,20 @@ export class GameComponent implements OnInit {
     maxValue: number;
     trophee = false;
     error = false;
+    wait = false;
+    mailRegister = false;
+    addons: any[] = [];
+    showAddons = false;
+    video = '';
+    baseUrl: string = 'https://www.youtube.com/embed/';
 
     get myGlobals() { return myGlobals; }
 
 
     constructor(
         private gameService: GameService,
-        private route: ActivatedRoute) { }
+        private route: ActivatedRoute,
+        private sanitizer: DomSanitizer) { }
 
     getGame(id: any): void {
         this.gameService
@@ -46,18 +55,10 @@ export class GameComponent implements OnInit {
                     }
                         return val;
                 }
-
-              /*  var lowest = Number.POSITIVE_INFINITY;
-                var highest = Number.NEGATIVE_INFINITY;
-                var tmp;
-                console.log(highest);
-                for (var i=this.game.prices.length-1; i>=0; i--) {
-                    tmp = this.game.prices[i].euro_value;
-                    if (tmp < lowest && tmp > 0) lowest = tmp;
-                    if (tmp > highest) highest = tmp;
-                }*/
                 this.minValue = finder(Math.min, this.game.prices, "euro_value");
                 this.maxValue = finder(Math.max, this.game.prices, "euro_value");
+
+                this.video = <string>this.sanitizer.bypassSecurityTrustResourceUrl(this.baseUrl + this.game.video);
             }, (err: any) => {
                 console.log(err);
                 this.game = null;
@@ -65,23 +66,63 @@ export class GameComponent implements OnInit {
 
     }
 
+    getAddons(id: string): void {
+        this.gameService
+            .getAddons(id)
+            .subscribe((addons: any) => {
+                this.addons = addons;
+                console.log(addons)
+            }, (err: any) => {
+                console.log(err);
+                this.addons = null;
+            });
+    }
+     validateEmail(email: string) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
+    send(price: number, email: string) {
+        if(price && this.validateEmail(email)) {
+            this.gameService
+                .sendMail(this.id, email, price)
+                .subscribe((response: any) => {
+                    console.log(response);
+                    this.mailRegister = true;
+                }, (err: any) => {
+                    this.mailRegister = false;
+                    console.log('erreur');
+                });
+        }
+    }
+
     toggleTrophee() {
+        this.wait = true;
             this.gameService
             .refreshGame(this.game.id)
             .subscribe((response: any) => {
-                   if(response.message == "time")
+                   if(response.message == "time") {
                        this.error = true;
-                    else
-                        this.trophee = true;
+                       this.wait = false;
+                   }
+                    else {
+                       this.trophee = true;
+                       this.wait = false;
+                   }
+                    console.log(response);
             }, (err: any) => {
                     console.log('erreur');
+                    this.wait = false;
             });
-
+    }
+    toggleAddons() {
+        this.showAddons = !this.showAddons
     }
     ngOnInit(): void {
         this.sub = this.route.params.subscribe(params => {
             this.id = params['id'];
             this.getGame(this.id);
+            this.getAddons(this.id);
         });
     }
 

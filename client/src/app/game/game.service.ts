@@ -28,9 +28,9 @@ export class GameService {
             .then(response => response.json().data as Game[]) // bizare
             .catch(this.handleError); */
     }
-    getGamesFilter(page: number, order: string, asc: string, price: number): Observable<Array<Game>> {
+    getGamesFilter(page: number, order: string, asc: string, price: number, type: string): Observable<Array<Game>> {
 
-        return this.http.get(this.apiUrl + 'game/filter?page='+ page +'&asc='+ asc +'&order='+ order +'&price='+ price )
+        return this.http.get(this.apiUrl + 'game/filter?page='+ page +'&asc='+ asc +'&order='+ order +'&price='+ price +'&type='+ type)
             .map(res => res.json())
             .catch((e) => {
                 return Observable.throw(
@@ -59,6 +59,25 @@ export class GameService {
             });
     }
 
+    addGame(link: string): Observable<Game>{
+        return this.http.post(this.apiUrl + 'game', {link})
+            .map(res => res.json())
+            .catch((e) => {
+                return Observable.throw(
+                    new Error(`${ e.status } ${ e.statusText }`)
+                );
+            });
+    }
+    findGame(name: string): Observable<Game>{
+        return this.http.post(this.apiUrl + 'game/find', {name})
+            .map(res => res.json())
+            .catch((e) => {
+                return Observable.throw(
+                    new Error(`${ e.status } ${ e.statusText }`)
+                );
+            });
+    }
+
     refreshGame(id: any): Observable<Game> {
         return this.http.get(this.apiUrl + 'game/refresh/' + id)
             .map(res => res.json())
@@ -71,6 +90,25 @@ export class GameService {
 
     getGold(): Observable<Array<Game>> {
         return this.http.get(this.apiUrl + 'gold')
+            .map(res => res.json())
+            .catch((e) => {
+                return Observable.throw(
+                    new Error(`${ e.status } ${ e.statusText }`)
+                );
+            });
+    }
+    getAddons(id: string): Observable<Game> {
+        return this.http.get(this.apiUrl + 'game/addons/' + id)
+            .map(res => res.json())
+            .catch((e) => {
+                return Observable.throw(
+                    new Error(`${ e.status } ${ e.statusText }`)
+                );
+            });
+    }
+
+    sendMail(game_id: string, email: string, price: number): Observable<Game>{
+        return this.http.post(this.apiUrl + 'alert', {game_id, price, email})
             .map(res => res.json())
             .catch((e) => {
                 return Observable.throw(

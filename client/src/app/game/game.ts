@@ -4,6 +4,15 @@ export class Game {
     prices: Array<Prices>;
     created_at:string;
     updated_at:string;
+    addon_id: boolean;
+    description: string;
+    discount: boolean;
+    gamescore: number;
+    slug: string;
+    studio: string;
+    type: string;
+    video: string;
+
 }
 
 class Prices {

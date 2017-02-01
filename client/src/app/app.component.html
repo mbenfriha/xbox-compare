@@ -4,13 +4,25 @@
             <div class="col s4 m6 m6 hide-on-small-only">
                 <div class="left lang" (click)="translate.use('fr')">FR</div>
                 <div class="left lang" (click)="translate.use('en')">EN</div>
-                <div (click)="toggleCurrency()" class="left lang currency">{{currencyCurrent}}</div>
+                <div (click)="toggleCurrency('$')" class="left lang currency">$</div>
+                <div (click)="toggleCurrency('€')" class="left lang">€</div>
+                <div (click)="toggleCurrency('CHF')" class="left lang">CH</div>
             </div>
             <div class="col s12 m6 l6">
                 <div class="field" id="searchform">
-                    <input name="q" type="text" size="40" placeholder="Fifa.. Call of.." />
+                    <input name="nameGameXSC" [(ngModel)]="searchStr" type="text" (keyup)="findGame(searchStr)" size="40" placeholder="Fifa.. Call of.." />
+                   <!-- <ng2-completer [(ngModel)]="searchStr" [dataService]="dataService" [placeholder]="'Fifa.. Call of..'" [minSearchLength]="2"
+                                   (ngModelChange)="findGame($event)" [inputClass]="'inputSearch'"
+                                   (selected)="onCountrySelected($event)">
+
+                    </ng2-completer>-->
 
                 </div>
+                <ul *ngIf="searchData.length > 0" class="row white search-result">
+                    <li class="col s12" *ngFor="let search of searchData" (click)="onGameSelected(search.id)">
+                        {{search.name}}
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -21,11 +33,13 @@
             </a>
         </div>
         <div class="col s12 m3 l3 hide-on-large-only nav-menu">
-            <img class="logo-mobile" src="/public/img/bag.png" alt="">
+            <a routerLink="/">
+            <img class="logo-mobile" src="/public/img/bag-mobile.png" alt="">
+            </a>
         </div>
         <div class="col s12 m12 l6 nav nav-wrapper">
 
-            <a href="#" data-activates="mobile-demo" class="button-collapse hide-on-large-only">
+            <a data-activates="mobile-demo" class="button-collapse hide-on-large-only">
                 <i class="material-icons white-text">menu</i>
             </a>
 
@@ -34,7 +48,7 @@
                 <li class="col s2"><a routerLink="/">{{ 'NAV.GIFT' | translate }}</a></li>
                 <li class="col s2"><a routerLink="/">{{ 'NAV.DEAL' | translate }}</a></li>
                 <li class="col s2"><a routerLink="/buy">{{ 'NAV.BUY' | translate }}</a></li>
-                <li class="col s2"><a routerLink="/">{{ 'NAV.ADD' | translate }}</a></li>
+                <li class="col s2"><a routerLink="/add">{{ 'NAV.ADD' | translate }}</a></li>
             </ul>
 
             <ul class="side-nav black center" id="mobile-demo">
@@ -43,7 +57,7 @@
                 <li><a class="white-text" routerLink="/">{{ 'NAV.GIFT' | translate }}</a></li>
                 <li><a class="white-text" routerLink="/">{{ 'NAV.DEAL' | translate }}</a></li>
                 <li><a class="white-text" routerLink="/buy">{{ 'NAV.BUY' | translate }}</a></li>
-                <li><a class="white-text" routerLink="/">{{ 'NAV.ADD' | translate }}</a></li>
+                <li><a class="white-text" routerLink="/add">{{ 'NAV.ADD' | translate }}</a></li>
                 <li>
                     <div class="center">
                         <div class="left lang" (click)="translate.use('fr')">FR</div>
@@ -93,4 +107,5 @@
             </div>
         </div>
     </div>
+
 </footer>

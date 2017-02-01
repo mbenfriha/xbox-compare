@@ -1,4 +1,5 @@
 {
+  "MONEY" : "$",
   "ALL": {
     "ASCENDING": "ASCENDING",
     "DESCENDING": "DESCENDING",
@@ -7,7 +8,8 @@
     "ALLGAMES": "ALL",
     "ORDER": "ORDER :",
     "SORT": "SORT BY :",
-    "MAXPRICE": "PRICE MAX :"
+    "MAXPRICE": "PRICE MAX :",
+    "GAME": "GAMES"
   },
   "NAV": {
     "GAMES": "ALL GAMES",

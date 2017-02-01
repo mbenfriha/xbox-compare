@@ -21,13 +21,22 @@ class GameController extends Controller
     public function filter()
     {
         Input::get('price') ? $price =Input::get('price') : $price = 1000;
-        return response()->json(app(GameServiceImpl::class)->filter(Input::get('page'), Input::get('order'), Input::get('asc'), $price));
+        return response()->json(app(GameServiceImpl::class)->filter(Input::get('page'), Input::get('order'), Input::get('asc'), $price, Input::get('type')));
     }
 
     public function getList()
     {
         return response()->json(app(GameServiceImpl::class)->lister());
     }
+    public function getDiscount()
+    {
+        return response()->json(app(GameServiceImpl::class)->listGameDiscount());
+    }
+    public function getAddons($id)
+    {
+        return response()->json(app(GameServiceImpl::class)->addonList($id));
+    }
+
     public function getListGold()
     {
         return response()->json(app(GameServiceImpl::class)->listerGold());
@@ -69,8 +78,8 @@ class GameController extends Controller
         }
 
 
-     // return response()->json(app(GameServiceImpl::class)->modifierPrix($id));
-        $this->action_post_async("http://xbox:8889/game/refresh", ["id" => $id]);
+      return response()->json(app(GameServiceImpl::class)->modifierPrix($id));
+     //   $this->action_post_async("http://xbox:8889/game/refresh", ["id" => $id]);
         return response()->json(['message' => 'wait_refresh']);
 
 

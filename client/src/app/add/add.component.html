@@ -1,6 +1,6 @@
 
-<div class="container add-game">
-    <div class="row">
+<div class="container add-game bg">
+    <div *ngIf="!wait" class="row">
         <div class="col s12">
             <h2 class="center">Ajouter un jeu</h2>
             <div class="col s12 m7 l7 add-text">
@@ -12,12 +12,17 @@
             </div>
 
             <div class="col s12 m5 l5">
+                <span *ngIf="error" class="red-text">Erreur: vérifiez le lien <br></span>
                 <em>Lien du jeu :</em>
                 <input type="text"
+                       [(ngModel)]="link"
                        placeholder=" exemple : https://www.microsoft.com/fr-FR/store/p/battlefield-1/bwttw53m5b98">
-                <button class="btn green-xbox right">Ajouter</button>
+                <button (click)="addGame(link)" class="btn green-xbox right">Ajouter</button>
 
             </div>
         </div>
+    </div>
+    <div *ngIf="wait" class="row">
+        <div class="loader-xbox"></div>
     </div>
 </div>
