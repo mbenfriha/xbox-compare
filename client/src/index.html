@@ -2,13 +2,66 @@
 <html>
 <head>
     <base href="/">
-    <title>Angular With Webpack</title>
+    <title>Xbox Store compare</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
     <link rel="stylesheet" href="../public/css/styles.css">
+    <link rel="stylesheet" href="https://twitch.xboxapi.com/xbox-font/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2.0.5/dist/flickity.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"
+          integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
 
+
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/construct/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/constructconstruct/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/construct/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/construct/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/construct/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/construct/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/construct/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/construct/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/construct/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/construct/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/construct/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/construct/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/construct/favicon-16x16.png">
+    <link rel="manifest" href="/construct/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/construct/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <meta property="og:image" content="http://xbox-store-compare.com/xsc-fb.png" />
+    <meta property="og:title" content="Xbox Store Compare" />
+    <meta property="og:description" content="Compare prices for your games easily" />
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-90655571-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 </head>
-<body>
-<my-app>Loading...</my-app>
+<body class="">
+
+<my-app class="my-app">
+    <div class="loader-xbox"></div>
+</my-app>
+<script>
+    $( document ).ready(function(){
+        $(".button-collapse").sideNav();
+    })
+</script>
+
+
 </body>
 </html>

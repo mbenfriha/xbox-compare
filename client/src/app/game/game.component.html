@@ -1,0 +1,133 @@
+
+
+
+
+<div *ngIf="game" class="container row single">
+    <div class="image-cover" [ngStyle]="{'background-image': 'url(' + link + game.id + background + ')'}"></div>
+    <div class="content-game">
+        <div class="col s12 m3 l3 center infos-game-single">
+            <a [href]="'https://www.microsoft.com/en-US/store/p/' + game.slug + '/' + game.id"><img [src]="link + game.id + cover"></a>
+            <span class="title-game-single col s12">{{game.name}}</span>
+            <span class="col s12 center">Studio: {{game.studio}}</span>
+            <span class="col s12 center">GameScore: {{game.gamescore}}</span>
+            <span class="col s12 center">Size: </span>
+            <div class="notifPrice">
+                <span>Tu veux être prévenu par mail quand ce jeu atteindra un prix max désiré ?
+                <b>choisi le prix MAX</b>, <b>renseigne</b> ton mail et clique sur le bouton <b>préviens-moi</b></span>
+                <span *ngIf="mailRegister" class="green-text"> <br> c'est ok, vérifie ton spam !</span>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="number" type="number" class="validate" [(ngModel)]="price">
+                        <label for="number" data-error="wrong" data-success="right">Prix Max</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="email" type="email" class="validate" [(ngModel)]="mail">
+                        <label for="email" data-error="wrong" data-success="right">Email</label>
+                    </div>
+
+                    <button (click)="send(price, mail)" class="btn green-xbox right">Préviens-moi</button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!wait" class="col s12 m9 l9">
+            <div class="refresh_price hide-on-small-only">
+                <a (click)="toggleTrophee()" class="btn-floating btn-large waves-effect waves-light green-xbox left"><i class="material-icons">autorenew</i></a>
+                <span class="right">{{ 'SINGLE.LAST_REFRESH' | translate }} : {{game.updated_at}}</span>
+            </div>
+            <div class="refresh_price_mobile hide-on-med-and-up center">
+                <a (click)="toggleTrophee()" class="btn-floating btn-large waves-effect waves-light green-xbox"><i class="material-icons">autorenew</i></a>
+                <span class="right">{{ 'SINGLE.LAST_REFRESH' | translate }} : {{game.updated_at}}</span>
+            </div>
+            <table class="bordered centered striped">
+                <thead>
+                <tr>
+                    <th data-field="store">Store</th>
+                    <th data-field="origin_price">{{ 'SINGLE.ORIGIN_PRICE' | translate }}</th>
+                    <th data-field="convert_price">{{ 'SINGLE.CONVERT_PRICE' | translate }}</th>
+                    <th data-field="good_deal">{{ 'NAV.DEAL' | translate }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let price of game.prices" [ngClass]="{red: price.euro_value == maxValue, green: price.euro_value == minValue, hide: !price.value}">
+
+                    <td><a target="_blank" [href]="'https://www.microsoft.com/'+ price.country.lang+ '/store/p/' + game.slug + '/' + game.id"><img [src]="'public/img/' + price.country.currency_name + '.png'"/></a></td>
+                    <td *ngIf="price.value > 0">{{ price.value | money:price.country.currency_name }}</td>
+                    <td *ngIf="price.value == 0"><i class="material-icons red-text">not_interested</i></td>
+                    <td *ngIf="price.euro_value > 0">{{ price.euro_value | convertCurrency:myGlobals.currency }}</td>
+                    <td *ngIf="price.euro_value == 0"><i class="material-icons red-text">not_interested</i></td>
+                    <td *ngIf="price.value > 0 && price.value_discount > 0">{{ price.euro_value_discount | convertCurrency:myGlobals.currency }} / {{ price.value_discount | money:price.country.currency_name }}</td>
+                    <td *ngIf="price.discount == 0"><i class="material-icons red-text">not_interested</i></td>
+                    <td *ngIf="price.value && price.value_discount < 1 && price.discount == true">
+                        <div class="chip amber lighten-1">
+                            Gratuit
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col s12 m9 l9">
+            <div *ngIf="wait">
+                <div class="loader-xbox"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s12 informations">
+                <h3 class="col s12" style="text-align: center;">INFORMATIONS</h3>
+                <div class="col s12 m6 l6">
+                    <iframe width="560" height="315" [src]="video" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="col s12 m6 l6">
+                    {{this.game.description}}
+                </div>
+            </div>
+        </div>
+
+        <div class="row alladdon" *ngIf="addons.length > 0">
+            <h3 class="col s12 diviser">ADDONS</h3>
+            <div class="col s12 allAddons" style="padding: 0 !important; text-align: center;" >
+                <div class="col s6 m4 l3" *ngFor="let addon of addons" style="padding: 0 !important">
+                    <a class="col s12" style="padding: 0 !important"
+                       [routerLink]="['/game', addon.id]">
+                        <img [src]="link + addon.id + cover" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="trophee" class="green-notif ">
+            <div class="achievement-banner animated">
+                <div class="achievement-loader"></div>
+                <div class="achievement-loader"></div>
+                <div class="achievement-loader"></div>
+                <div class="achievement-loader"></div>
+                <div class="achievement-loader"></div>
+                <div class="achievement-trophy xbox-icon xbox-logo"></div>
+
+                <div class="achievement-text">
+                    <p class="achievement-notification">Achievement Unlocked</p>
+                    <p class="achievement-name"><i class="xbox-icon xbox-gamerscore"></i> 1,000 &ndash; Refresh {{game.name}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="error" class="red-notif ">
+            <div class="achievement-banner animated">
+                <div class="achievement-loader"></div>
+                <div class="achievement-loader"></div>
+                <div class="achievement-loader"></div>
+                <div class="achievement-loader"></div>
+                <div class="achievement-loader"></div>
+                <div class="achievement-trophy xbox-icon xbox-logo"></div>
+
+                <div class="achievement-text">
+                    <p class="achievement-notification">Oups une erreur</p>
+                    <p class="achievement-name"><i class="xbox-icon xbox-gamerscore"></i> 1,000 &ndash; Impossible de rafraichir</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

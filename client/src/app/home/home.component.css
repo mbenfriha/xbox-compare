@@ -1,0 +1,18 @@
+.gwg {
+    margin-top: 2em;
+}
+.gwg img {
+    width: 100%;
+}
+.gwg-l {
+    margin-top: 2vw;
+}
+
+.hide-on-large-only img {
+    width: 100%;
+}
+
+.gwg .carousel {
+    overflow: visible !important;
+    margin-top: -6em;
+}

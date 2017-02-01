@@ -1,0 +1,108 @@
+img {
+    width: 100%;
+}
+
+.games {
+    padding: 2em;
+}
+
+.games .game-list {
+    margin-bottom: 2em;
+    position: relative;
+}
+
+.price {
+    position: absolute;
+    bottom: 1em;
+    width: 88%;
+    text-align: center;
+}
+
+.price .chip {
+    font-size: 1.3em;
+}
+
+.game-name {
+    font-weight: 700;
+    color: #fff;
+    line-height: 16px;
+    margin-bottom: 15px;
+    font-size: 12px;
+    text-shadow: 0px 0px 2px black;
+
+}
+
+.button-filter {
+    font-size: 0.6em;
+    padding: 0em 1em;
+    width: 100%;
+}
+
+.button-filter:hover {
+
+}
+
+.sortBy {
+    margin-top: 2em;
+    padding: 2em;
+    color: white;
+}
+
+.sortBy i {
+    font-size: 3em;
+}
+
+.sortBy::after {
+    margin-top: 5em;
+    content: '';
+    width: 100%;
+    height: 5px;
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%, hsla(0, 0%, 0%, 0)), color-stop(50%, hsla(180, 100%, 96%, 0.75)), color-stop(100%, hsla(0, 0%, 0%, 0)));
+    background: -webkit-linear-gradient(left, hsla(0, 0%, 0%, 0) 0%, hsla(180, 100%, 96%, 0.75) 50%, hsla(0, 0%, 0%, 0) 100%);
+    background: -moz-linear-gradient(left, hsla(0, 0%, 0%, 0) 0%, hsla(180, 100%, 96%, 0.75) 50%, hsla(0, 0%, 0%, 0) 100%);
+    background: -ms-linear-gradient(left, hsla(0, 0%, 0%, 0) 0%, hsla(180, 100%, 96%, 0.75) 50%, hsla(0, 0%, 0%, 0) 100%);
+    background: -o-linear-gradient(left, hsla(0, 0%, 0%, 0) 0%, hsla(180, 100%, 96%, 0.75) 50%, hsla(0, 0%, 0%, 0) 100%);
+    background: linear-gradient(left, hsla(0, 0%, 0%, 0) 0%, hsla(180, 100%, 96%, 0.75) 50%, hsla(0, 0%, 0%, 0) 100%);
+}
+
+.sortBy span {
+    border: 2px solid white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.sortBy span:hover {
+    font-size: 1.2em;
+    border-color: black !important;
+    color: black;
+    transition-duration: 0.3s;
+}
+
+.active-span {
+    background-color: black !important;
+    color: white !important;
+}
+
+.allSort {
+    margin-bottom: 2em;
+}
+
+.empty {
+    padding: 2em;
+    font-size: 2em;
+    color: white;
+}
+
+.pagination {
+    padding-bottom: 2em;
+}
+
+.pagination li.active {
+    background-color: #ffffff;
+    color: black;
+}
+
+.pagination li.active a {
+    color: black;
+}

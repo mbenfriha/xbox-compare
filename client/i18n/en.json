@@ -1,0 +1,27 @@
+{
+  "MONEY" : "$",
+  "ALL": {
+    "ASCENDING": "ASCENDING",
+    "DESCENDING": "DESCENDING",
+    "NAME": "NAME",
+    "DATE": "DATE",
+    "ALLGAMES": "ALL",
+    "ORDER": "ORDER :",
+    "SORT": "SORT BY :",
+    "MAXPRICE": "PRICE MAX :",
+    "GAME": "GAMES"
+  },
+  "NAV": {
+    "GAMES": "ALL GAMES",
+    "GIFT": "GIFT CARD",
+    "DEAL": "GOOD DEAL",
+    "BUY": "HOW BUY",
+    "ADD": "ADD GAME",
+    "SEARCH": "Search.."
+  },
+  "SINGLE": {
+    "ORIGIN_PRICE": "ORIGIN PRICE",
+    "CONVERT_PRICE": "CONVERT PRICE",
+    "LAST_REFRESH": "Last refresh"
+  }
+}

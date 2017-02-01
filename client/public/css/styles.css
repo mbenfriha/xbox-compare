@@ -1,0 +1,87 @@
+.my-app {
+    display: flex ;
+    min-height: 100vh ;
+    flex-direction: column ;
+}
+
+main {
+    flex: 1 0 auto !important;
+}
+
+
+
+.loader-xbox {
+    position: absolute;
+    top: calc(50% - 25px);
+    left: calc(50% - 25px);
+}
+
+.loader-xbox, .loader-xbox:before, .loader-xbox:after {
+    position: absolute;
+    border: 3px solid transparent;
+    border-top: 3px solid hsl(83, 82%, 53%);
+    border-radius: 50%;
+    animation: rotate linear infinite;
+    content: '';
+}
+
+.loader-xbox {
+    height: 100px;
+    width: 100px;
+    animation-duration: 1.05s;
+}
+
+.loader-xbox:before {
+    height: 75px;
+    width: 75px;
+    top: 10px;
+    left: 10px;
+    animation-duration: 10s;
+}
+
+.loader-xbox:after {
+    height: 50px;
+    width: 50px;
+    top: 22px;
+    left: 22px;
+    animation-duration: 4s;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotateZ(360deg);
+    }
+    to {
+        transform: rotateZ(0deg);
+    }
+}
+
+.green-xbox {
+    background-color: #107c0f;
+}
+
+
+#searchform .inputSearch {
+    background: url(http://www.bloggermint.com/demos/css3searchbox/search-white.png) no-repeat 10px 6px;
+    border: white 1px solid;
+    font: bold 12px Arial,Helvetica,Sans-serif;
+    color: white;
+    width: 150px;
+    padding: 6px 15px 6px 35px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+    -webkit-transition: all 0.7s ease 0s;
+    -moz-transition: all 0.7s ease 0s;
+    -o-transition: all 0.7s ease 0s;
+    transition: all 0.7s ease 0s;
+    height: 1em;
+}
+
+#searchform .inputSearch:focus {
+    width: 200px;
+}

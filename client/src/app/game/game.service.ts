@@ -10,19 +10,111 @@ import { Game } from './game';
 export class GameService {
 
     private headers = new Headers({'Content-Type': 'application/json'});
-    private apiUrl = 'http://xbox:8889/';  // URL to web api
+    private apiUrl = 'http://api.xbox-store-compare.com/';  // URL to web api
 
     constructor(private http: Http) { }
 
-    getGames(): Observable<Game[]> {
+    getGames(): Observable<Array<Game>> {
         return this.http.get(this.apiUrl + 'games')
             .map(res => res.json())
-            .catch(this.handleError);
+            .catch((e) => {
+                return Observable.throw(
+                    new Error(`${ e.status } ${ e.statusText }`)
+                );
+            });
 
        /* return this.http.get(this.apiUrl + 'games')
             .toPromise()
             .then(response => response.json().data as Game[]) // bizare
             .catch(this.handleError); */
+    }
+    getGamesFilter(page: number, order: string, asc: string, price: number, type: string): Observable<Array<Game>> {
+
+        return this.http.get(this.apiUrl + 'game/filter?page='+ page +'&asc='+ asc +'&order='+ order +'&price='+ price +'&type='+ type)
+            .map(res => res.json())
+            .catch((e) => {
+                return Observable.throw(
+                    new Error(`${ e.status } ${ e.statusText }`)
+                );
+            });
+    }
+
+    getLastGames(): Observable<Array<Game>> {
+        return this.http.get(this.apiUrl + 'games/last')
+            .map(res => res.json())
+            .catch((e) => {
+                return Observable.throw(
+                    new Error(`${ e.status } ${ e.statusText }`)
+                );
+            });
+    }
+
+    getGame(id: any): Observable<Game> {
+        return this.http.get(this.apiUrl + 'game/' + id)
+            .map(res => res.json())
+            .catch((e) => {
+                return Observable.throw(
+                    new Error(`${ e.status } ${ e.statusText }`)
+                );
+            });
+    }
+
+    addGame(link: string): Observable<Game>{
+        return this.http.post(this.apiUrl + 'game', {link})
+            .map(res => res.json())
+            .catch((e) => {
+                return Observable.throw(
+                    new Error(`${ e.status } ${ e.statusText }`)
+                );
+            });
+    }
+    findGame(name: string): Observable<Game>{
+        return this.http.post(this.apiUrl + 'game/find', {name})
+            .map(res => res.json())
+            .catch((e) => {
+                return Observable.throw(
+                    new Error(`${ e.status } ${ e.statusText }`)
+                );
+            });
+    }
+
+    refreshGame(id: any): Observable<Game> {
+        return this.http.get(this.apiUrl + 'game/refresh/' + id)
+            .map(res => res.json())
+            .catch((e) => {
+                return Observable.throw(
+                    new Error(`${ e.status } ${ e.statusText }`)
+                );
+            });
+    }
+
+    getGold(): Observable<Array<Game>> {
+        return this.http.get(this.apiUrl + 'gold')
+            .map(res => res.json())
+            .catch((e) => {
+                return Observable.throw(
+                    new Error(`${ e.status } ${ e.statusText }`)
+                );
+            });
+    }
+    getAddons(id: string): Observable<Game> {
+        return this.http.get(this.apiUrl + 'game/addons/' + id)
+            .map(res => res.json())
+            .catch((e) => {
+                return Observable.throw(
+                    new Error(`${ e.status } ${ e.statusText }`)
+                );
+            });
+    }
+
+    sendMail(game_id: string, email: string, price: number): Observable<Game>{
+        return this.http.post(this.apiUrl + 'alert', {game_id, price, email})
+            .map(res => res.json())
+            .catch((e) => {
+                return Observable.throw(
+                    new Error(`${ e.status } ${ e.statusText }`)
+                );
+            });
     }
 
     private handleError(error: any): Promise<any> {

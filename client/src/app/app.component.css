@@ -1,0 +1,267 @@
+@import url(http://fonts.googleapis.com/css?family=Montserrat+Alternates);
+
+
+main {
+    margin:0;
+    padding:0;
+    background: url(../../public/img/background.png) no-repeat center fixed;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+
+main {
+    padding-bottom: 4em;
+    position: relative;
+}
+
+
+.green-xbox {
+    background-color: #107c0f;
+}
+
+.menu .top-menu {
+    height: 4em;
+    margin-bottom: 0px;
+}
+
+.menu {
+    background-color: #107c0f;
+}
+
+.diviser {
+    position: relative;
+    height: 100%;
+    padding: 1em;
+}
+
+.diviser::after {
+    content:'';
+    width:100%;
+    position: absolute;
+    left:0;
+    bottom:-1px;
+    height: 3px;
+    background: #333;
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%, hsla(0, 0%, 0%, 0)), color-stop(50%, hsla(180, 100%, 96%, 0.75)), color-stop(100%, hsla(0, 0%, 0%, 0)));
+    background: -webkit-linear-gradient(left, hsla(0, 0%, 0%, 0) 0%, hsla(180, 100%, 96%, 0.75) 50%, hsla(0, 0%, 0%, 0) 100%);
+    background: -moz-linear-gradient(left, hsla(0, 0%, 0%, 0) 0%, hsla(180, 100%, 96%, 0.75) 50%, hsla(0, 0%, 0%, 0) 100%);
+    background: -moz-linear-gradient(left, hsla(0, 0%, 0%, 0) 0%, hsla(180, 100%, 96%, 0.75) 50%, hsla(0, 0%, 0%, 0) 100%);
+    background: -ms-linear-gradient(left, hsla(0, 0%, 0%, 0) 0%, hsla(180, 100%, 96%, 0.75) 50%, hsla(0, 0%, 0%, 0) 100%);
+    background: -o-linear-gradient(left, hsla(0, 0%, 0%, 0) 0%, hsla(180, 100%, 96%, 0.75) 50%, hsla(0, 0%, 0%, 0) 100%);
+    background: linear-gradient(left, hsla(0, 0%, 0%, 0) 0%, hsla(180, 100%, 96%, 0.75) 50%, hsla(0, 0%, 0%, 0) 100%);
+}
+
+.menu {
+    z-index: 998;
+}
+
+.menu .nav .large-menu ul {
+    list-style-type:none;
+    margin-left:2px;
+}
+
+.menu .nav .large-menu ul li {
+    float: left;
+}
+
+.menu .nav .large-menu li a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    transition-duration: 0.2s;
+    font-size: 0.7em;
+}
+
+.menu .nav ul li:hover a {
+    color: black;
+    transition-duration: 0.3s;
+}
+
+.logo {
+    width: 12em;
+    position: absolute;
+    top: -1em;
+    left: 2em;
+}
+
+.logo-mobile {
+    position: absolute;
+    width: 10%;
+    top: 1vw;
+    left: 44%;
+}
+
+.diviser img {
+    width: 25px;
+    margin-right: 1em;
+}
+
+
+#searchform input[type="text"] {
+    background: url(http://www.bloggermint.com/demos/css3searchbox/search-white.png) no-repeat 10px 6px;
+    border: white 1px solid;
+    font: bold 12px Arial,Helvetica,Sans-serif;
+    color: white;
+    width: 150px;
+    padding: 6px 15px 6px 35px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+    -webkit-transition: all 0.7s ease 0s;
+    -moz-transition: all 0.7s ease 0s;
+    -o-transition: all 0.7s ease 0s;
+    transition: all 0.7s ease 0s;
+    height: 1em;
+}
+
+#searchform input[type="text"]:focus {
+    width: 200px;
+}
+
+#searchform .inputSearch {
+    background: url(http://www.bloggermint.com/demos/css3searchbox/search-white.png) no-repeat 10px 6px;
+    border: white 1px solid;
+    font: bold 12px Arial,Helvetica,Sans-serif;
+    color: white;
+    width: 150px;
+    padding: 6px 15px 6px 35px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+    -webkit-transition: all 0.7s ease 0s;
+    -moz-transition: all 0.7s ease 0s;
+    -o-transition: all 0.7s ease 0s;
+    transition: all 0.7s ease 0s;
+    height: 1em;
+}
+
+#searchform .inputSearch {
+    width: 200px;
+}
+
+.search-result {
+    margin-top: -1em;
+    z-index: 999999999999999;
+    position: relative;
+}
+.search-result li {
+    border: 2px solid white;
+    cursor: pointer;
+    border-bottom: 1px solid black;
+    padding: 0.3em;
+}
+.search-result li:hover {
+    border: 2px solid #107c0f;
+}
+
+.lang {
+    border: 2px solid white;
+    border-radius: 5px;
+    margin: 0px 0.3em;
+    font-size: 0.8em;
+    color: white;
+    width: 2em;
+    cursor: pointer;
+}
+
+.lang:hover {
+    color: black;
+    border-color: black;
+    transition-duration: 0.2s;
+}
+
+.currency {
+    margin-left: 1em;
+}
+
+.nav-menu {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100% !important;
+    text-align: left;
+}
+
+.side-nav li:hover a {
+    border: 1px solid white;
+}
+
+.side-nav .lang {
+    width: 6em;
+}
+
+.side-nav .center {
+    margin: 0 auto;
+    width: 11em;
+    clear: both;
+    margin-bottom: 1em;
+    overflow: hidden;
+}
+
+.bot {
+    margin-bottom: 0px;
+}
+
+.footer {
+    height: 100px;
+    background-color:
+    black;
+    margin-top: 2em;
+    color: white;
+    text-align: center;
+    margin-bottom: 0px;
+    z-index: 2;
+    position: relative;
+}
+
+footer {
+    z-index: 2;
+}
+
+.page-footer .fa{
+    font-size: 3em;
+    color: white;
+    margin: 0em 0.2em;
+    cursor: pointer;
+}
+.page-footer .fa:hover{
+    color: #107c0f;
+}
+.page-footer {
+    position: relative;
+    margin-top: 0em;
+}
+
+.page-footer hr {
+    max-width: 125px;
+    font-size: 85%;
+    border-top: 2px solid #107c0f !important;
+    border: 0;
+}
+
+.logofooter {
+    position: absolute;
+    top: -3em;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+}
+
+.logotypo {
+    margin-top: 2em;
+}
+
+.copyright {
+    font-size: 12px;
+    color: #afafaf;
+}
