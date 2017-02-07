@@ -37,6 +37,24 @@ main {
     position: relative;
 }
 
+.allAddons img {
+    width: 100%;
+    padding: 9%;
+}
+.allAddons a {
+    position: relative;
+}
+
+.allAddons span {
+    position: absolute;
+    bottom: 4em;
+    width: 100%;
+    padding: 9%;
+    right: 0;
+    color: white;
+    text-shadow: 1px 1px 1Px black;
+}
+
 .informations iframe {
     width: 100%;
 }
@@ -138,6 +156,7 @@ table tr {
 table.striped>tbody>tr:nth-child(odd) {
     background-color: rgba(242, 242, 242, 0.61);
 }
+
 
 .green-notif .achievement-banner, .green-notif .achievement-banner-big {
     position: absolute;

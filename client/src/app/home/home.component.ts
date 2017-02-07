@@ -6,6 +6,7 @@ import { GameService }         from '../game/game.service';
 
 declare var jQuery:any;
 
+import myGlobals = require('../globals');
 
 @Component({
     selector: 'my-games',
@@ -14,7 +15,7 @@ declare var jQuery:any;
 })
 export class HomeComponent implements OnInit {
     golds: Game[];
-    link = "http://api.xbox-store-compare.com/img/";
+    link = myGlobals.api_url+"img/";
     img = "/cover.jpeg";
 
     constructor(

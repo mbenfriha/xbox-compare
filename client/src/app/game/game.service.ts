@@ -6,11 +6,14 @@ import {Observable} from 'rxjs/Observable';
 
 import { Game } from './game';
 
+import myGlobals = require('../globals');
+
+
 @Injectable()
 export class GameService {
 
     private headers = new Headers({'Content-Type': 'application/json'});
-    private apiUrl = 'http://api.xbox-store-compare.com/';  // URL to web api
+    private apiUrl = myGlobals.api_url;  // URL to web api
 
     constructor(private http: Http) { }
 

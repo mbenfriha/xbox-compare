@@ -48,12 +48,6 @@ class GameServiceImpl implements GameService
 
     public function ajouter($msLink, $gameID = false)
     {
-
-        $a = explode('/', $msLink);
-        $b = Game::findOrFail(end($a));
-        if($b)
-            return false;
-
         $defaultCurrency = 'EUR';
         $l = (parse_url($msLink));
 
@@ -75,6 +69,12 @@ class GameServiceImpl implements GameService
         $obj = json_decode(file_get_contents($url), true);
 
         $msLinkData = explode('/', $msLink);
+
+        if ($gameID) {
+            $game = Game::find(end($msLinkData));
+            if($game)
+                return $game;
+        }
 
         if(!is_dir('img/'. end($msLinkData))) {
             mkdir('img/'. end($msLinkData));
@@ -113,12 +113,6 @@ class GameServiceImpl implements GameService
             'addon_id'      => $addonId,
         ]);
 
-        if (count($obj['addons']) > 0)
-        {
-            foreach($obj['addons'] as $addon) {
-                $this->ajouter('https://www.microsoft.com' . $addon, $idGame);
-            }
-        }
 
         foreach(Country::all() as $country)
         {
@@ -166,6 +160,14 @@ class GameServiceImpl implements GameService
             ]);
 
         }
+
+        if (count($obj['addons']) > 0)
+        {
+            foreach($obj['addons'] as $addon) {
+                $this->ajouter('https://www.microsoft.com' . $addon, $idGame);
+            }
+        }
+
         return $game;
     }
 

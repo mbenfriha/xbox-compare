@@ -34,6 +34,8 @@ export class AddComponent implements OnInit {
                 this.router.navigate(['/game', response.message.id]);
             }, (err: any) => {
                 console.log('erreur');
+                this.wait = false;
+                this.error = true;
             });
 
     }

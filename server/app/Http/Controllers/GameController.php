@@ -63,7 +63,7 @@ class GameController extends Controller
         {
          return response()->json(['message' => app(GameServiceImpl::class)->ajouter($request->link)]);
          //  $this->action_post_async("http://xbox:8889/game/parse", $request->only('link'));
-            return response()->json(['message' => 'wait_post']);
+         //   return response()->json(['message' => 'wait_post']);
         }
     }
 

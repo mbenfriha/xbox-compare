@@ -15,7 +15,7 @@ import myGlobals = require('../globals');
 export class SliderComponent implements OnInit {
     games: Game[];
 
-    link = "http://api.xbox-store-compare.com/img/";
+    link = myGlobals.api_url + "img/";
     img = "/background.jpeg";
     get myGlobals() { return myGlobals; }
 
