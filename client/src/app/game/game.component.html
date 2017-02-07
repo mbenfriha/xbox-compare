@@ -50,7 +50,11 @@
                 <tbody>
                 <tr *ngFor="let price of game.prices" [ngClass]="{red: price.euro_value == maxValue, green: price.euro_value == minValue, hide: !price.value}">
 
-                    <td><a target="_blank" [href]="'https://www.microsoft.com/'+ price.country.lang+ '/store/p/' + game.slug + '/' + game.id"><img [src]="'public/img/' + price.country.currency_name + '.png'"/></a></td>
+                    <td class="left">
+                        <a class="tooltipped" data-position="right" data-delay="1" [attr.data-tooltip]="price.country.name" target="_blank" [href]="'https://www.microsoft.com/'+ price.country.lang+ '/store/p/' + game.slug + '/' + game.id">
+                        <img [src]="'public/img/' + price.country.currency_name + '.png'"/>
+                    </a>
+                    </td>
                     <td *ngIf="price.value > 0">{{ price.value | money:price.country.currency_name }}</td>
                     <td *ngIf="price.value == 0"><i class="material-icons red-text">not_interested</i></td>
                     <td *ngIf="price.euro_value > 0">{{ price.euro_value | convertCurrency:myGlobals.currency }}</td>
